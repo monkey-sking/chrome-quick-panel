@@ -10,10 +10,6 @@ const MENU_ITEMS = [
   { id: 'open-bookmarks', title: '打开书签管理器' },
 ];
 
-// 弹窗打开时向后台询问该显示哪个面板，取走后立刻复位为书签，
-// 保证左键永远是书签，只有右键菜单里的「历史记录面板」才是历史。
-let pendingMode = 'bookmarks';
-
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setPopup({ popup: POPUP_PAGE });
   buildMenus();
@@ -35,22 +31,13 @@ function buildMenus() {
   });
 }
 
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message && message.type === 'get-mode') {
-    sendResponse({ mode: pendingMode });
-    pendingMode = 'bookmarks';
-  }
-});
-
 chrome.contextMenus.onClicked.addListener(async (info) => {
   switch (info.menuItemId) {
     case 'history-panel':
-      pendingMode = 'history';
-      await openPanel();
+      await openPanel('history');
       break;
     case 'bookmarks-panel':
-      pendingMode = 'bookmarks';
-      await openPanel();
+      await openPanel('bookmarks');
       break;
     case 'open-history':
       await openUrl('chrome://history/');
@@ -61,18 +48,21 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
   }
 });
 
-async function openPanel() {
-  if (chrome.action.openPopup) {
-    try {
-      await chrome.action.openPopup();
-      return;
-    } catch (error) {
-      console.warn('[quick-panel] openPopup 失败，改用独立弹窗', error);
-    }
+// action.openPopup() 在部分 Chrome 版本会静默失败，因此右键菜单直接打开
+// 带 mode 参数的独立面板窗口，避免依赖会被回收的 Service Worker 内存状态。
+async function openPanel(mode) {
+  const url = chrome.runtime.getURL(`${POPUP_PAGE}?mode=${mode}`);
+  try {
+    await chrome.windows.create({
+      url,
+      type: 'popup',
+      width: 430,
+      height: 620,
+      focused: true,
+    });
+  } catch (error) {
+    console.warn('[quick-panel] 无法打开面板', error);
   }
-  const url = `${POPUP_PAGE}?mode=${pendingMode}`;
-  pendingMode = 'bookmarks';
-  await chrome.windows.create({ url, type: 'popup', width: 430, height: 620 });
 }
 
 async function openUrl(url) {

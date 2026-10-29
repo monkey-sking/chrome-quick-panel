@@ -50,12 +50,7 @@ async function boot() {
 async function resolveMode() {
   const param = new URLSearchParams(location.search).get('mode');
   if (param === 'history' || param === 'bookmarks') return param;
-  try {
-    const response = await chrome.runtime.sendMessage({ type: 'get-mode' });
-    return response && response.mode === 'history' ? 'history' : 'bookmarks';
-  } catch {
-    return 'bookmarks';
-  }
+  return 'bookmarks';
 }
 
 /* ---------- 历史面板 ---------- */
