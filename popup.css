@@ -1,0 +1,275 @@
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #1f1f1f;
+  --fg-muted: #5f6368;
+  --hover: #f1f3f4;
+  --active: #e8eaed;
+  --rule: #e9eaec;
+  --accent: #1a73e8;
+  --chip: #f1f3f4;
+  --chip-fg: #5f6368;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202124;
+    --fg: #e8eaed;
+    --fg-muted: #9aa0a6;
+    --hover: #2f3033;
+    --active: #3c4043;
+    --rule: #3c4043;
+    --accent: #8ab4f8;
+    --chip: #303134;
+    --chip-fg: #bdc1c6;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 420px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+    "Hiragino Sans GB", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-height: 580px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px 0 8px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: calc(100% - 12px);
+  margin: 1px 6px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.row:hover {
+  background: var(--hover);
+}
+
+.row:active {
+  background: var(--active);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.row-tall {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.row-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-muted);
+}
+
+.row-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.row-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-chevron {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--fg-muted);
+  opacity: 0.75;
+  transition: transform 0.12s ease;
+}
+
+.row-chevron svg {
+  width: 16px;
+  height: 16px;
+}
+
+.row-count {
+  flex: 0 0 auto;
+  color: var(--fg-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.kbd {
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--chip);
+  color: var(--chip-fg);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.favicon {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.avatar {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--chip);
+  color: var(--chip-fg);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.rule {
+  height: 1px;
+  margin: 8px 10px;
+  background: var(--rule);
+}
+
+.section {
+  padding: 2px 0 4px;
+}
+
+.section-title {
+  margin: 6px 16px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty {
+  margin: 2px 6px;
+  padding: 10px 12px;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 8px;
+}
+
+.search {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--chip);
+  color: var(--fg-muted);
+}
+
+.search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  outline: none;
+}
+
+.search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.icon-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--fg-muted);
+  cursor: default;
+}
+
+.icon-btn:hover {
+  background: var(--hover);
+  color: var(--fg);
+}
+
+.group {
+  margin: 2px 0;
+}
+
+.group-head {
+  list-style: none;
+}
+
+.group-head::-webkit-details-marker {
+  display: none;
+}
+
+.group[open] > .group-head .row-chevron {
+  transform: rotate(90deg);
+}
+
+.group-body {
+  padding: 0 0 2px;
+}
+
+.group.nested {
+  margin-left: 18px;
+}
+
+.bookmark-row {
+  padding-left: 14px;
+}
