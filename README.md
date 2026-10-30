@@ -70,7 +70,8 @@ cd chrome-quick-panel
 
 修改后在 `chrome://extensions` 里点扩展卡片上的刷新按钮即可生效。
 
-重新生成图标（需要 Pillow）：
+重新生成图标（需要 Pillow）。母版是 `assets/icon-source.png`，各尺寸都由它派生，
+不要直接改 `icons/` 下的文件：
 
 ```bash
 python3 tools/make_icons.py
