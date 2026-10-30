@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
   "name": "书签 / 历史 快捷面板",
-  "version": "1.0.0",
-  "description": "工具栏一键打开：左键书签面板，右键历史面板（最近标签页 + 您的设备）。",
+  "version": "1.1.0",
+  "description": "点击工具栏图标，在书签面板和历史面板之间交替打开。",
   "minimum_chrome_version": "120",
   "permissions": [
     "tabs",
     "bookmarks",
     "sessions",
+    "storage",
     "contextMenus",
     "favicon"
   ],
@@ -15,7 +16,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "书签 / 历史",
+    "default_title": "书签 / 历史（点击交替切换）",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",

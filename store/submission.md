@@ -4,7 +4,7 @@
 
 - 一个 Chrome 应用商店开发者账号（首次注册需一次性支付 5 美元）
 - 已登录的 Google 账号
-- 本仓库打包出的 ZIP：`bash scripts/package.sh` → `dist/chrome-quick-panel-1.0.0.zip`
+- 本仓库打包出的 ZIP：`bash scripts/package.sh` → `dist/chrome-quick-panel-1.1.0.zip`
 
 ## 1. 注册开发者账号（已有可跳过）
 
@@ -15,7 +15,7 @@
 ## 2. 创建新项目并上传
 
 1. 开发者控制台 → **新增项目**
-2. 上传 `dist/chrome-quick-panel-1.0.0.zip`
+2. 上传 `dist/chrome-quick-panel-1.1.0.zip`
 3. 等待包校验通过
 
 ## 3. 填写商店信息

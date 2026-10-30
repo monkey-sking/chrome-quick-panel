@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate the toolbar icons (bookmark ribbon + clock).
+"""Regenerate the toolbar icons: a clock (history) beside a bookmark ribbon.
 
 Usage: python3 tools/make_icons.py
 Requires: Pillow
@@ -9,54 +9,87 @@ import pathlib
 
 from PIL import Image, ImageDraw
 
-BLUE = (26, 115, 232, 255)
+TILE_TOP = (76, 141, 246, 255)
+TILE_BOTTOM = (21, 101, 216, 255)
 WHITE = (255, 255, 255, 255)
+AMBER = (255, 190, 61, 255)
 SUPERSAMPLE = 16
 
 
 def render(size: int) -> Image.Image:
     scale = size * SUPERSAMPLE
+
+    # 圆角方砖底：浅色 / 深色工具栏上都看得清，也让两个图形在小尺寸下不糊成一团。
+    gradient = Image.new("RGBA", (scale, scale))
+    for y in range(scale):
+        t = y / max(1, scale - 1)
+        gradient.paste(
+            tuple(
+                round(TILE_TOP[i] + (TILE_BOTTOM[i] - TILE_TOP[i]) * t) for i in range(4)
+            ),
+            (0, y, scale, y + 1),
+        )
+
     image = Image.new("RGBA", (scale, scale), (0, 0, 0, 0))
+    mask = Image.new("L", (scale, scale), 0)
+    ImageDraw.Draw(mask).rounded_rectangle(
+        [0, 0, scale - 1, scale - 1], radius=scale * 0.23, fill=255
+    )
+    image.paste(gradient, (0, 0), mask)
     draw = ImageDraw.Draw(image)
 
-    width = scale * 0.50
-    x0 = (scale - width) / 2
-    y0, y1 = scale * 0.10, scale * 0.92
-    draw.rounded_rectangle(
-        [x0, y0, x0 + width, y1], radius=scale * 0.07, fill=BLUE
-    )
-
-    center_x = x0 + width / 2
-    notch = width * 0.31
-    draw.polygon(
+    # 左：时钟（历史）。空心圆环 + 指针，圆环本身就能读出「时钟」。
+    clock_x, clock_y = scale * 0.350, scale * 0.505
+    outer_r = scale * 0.225
+    ring_w = scale * 0.058
+    draw.ellipse(
         [
-            (center_x - notch, y1 + 1),
-            (center_x, y1 - notch * 1.15),
-            (center_x + notch, y1 + 1),
+            clock_x - outer_r,
+            clock_y - outer_r,
+            clock_x + outer_r,
+            clock_y + outer_r,
         ],
-        fill=(0, 0, 0, 0),
+        outline=WHITE,
+        width=round(ring_w),
     )
+    hand_w = round(scale * 0.055)
+    for end_x, end_y in (
+        (clock_x, clock_y - outer_r * 0.40),  # 时针朝上
+        (clock_x + outer_r * 0.52, clock_y),  # 分针朝右
+    ):
+        draw.line([(clock_x, clock_y), (end_x, end_y)], fill=WHITE, width=hand_w)
+        draw.ellipse(
+            [
+                end_x - hand_w / 2,
+                end_y - hand_w / 2,
+                end_x + hand_w / 2,
+                end_y + hand_w / 2,
+            ],
+            fill=WHITE,
+        )
 
-    clock_x, clock_y, radius = center_x, scale * 0.50, scale * 0.185
-    draw.ellipse(
-        [clock_x - radius, clock_y - radius, clock_x + radius, clock_y + radius],
-        fill=WHITE,
+    # 右：书签飘带。底部 V 形缺口是书签的识别特征，用暖色和时钟区分开。
+    bm_x, bm_w = scale * 0.720, scale * 0.235
+    bm_top, bm_bottom = scale * 0.250, scale * 0.790
+    left, right = bm_x - bm_w / 2, bm_x + bm_w / 2
+    # 缺口必须从飘带的蒙版里挖，直接往上画透明色会把底砖也打穿。
+    ribbon = Image.new("L", (scale, scale), 0)
+    ribbon_draw = ImageDraw.Draw(ribbon)
+    ribbon_draw.rounded_rectangle(
+        [left, bm_top, right, bm_bottom], radius=scale * 0.035, fill=255
     )
-    stroke = max(2, int(scale * 0.05))
-    draw.line(
-        [(clock_x, clock_y), (clock_x, clock_y - radius * 0.62)],
-        fill=BLUE,
-        width=stroke,
+    notch = bm_w * 0.42
+    ribbon_draw.polygon(
+        [
+            (left - 1, bm_bottom - notch * 1.6),
+            (bm_x, bm_bottom - notch * 0.30),
+            (right + 1, bm_bottom - notch * 1.6),
+            (right + 1, bm_bottom + 2),
+            (left - 1, bm_bottom + 2),
+        ],
+        fill=0,
     )
-    draw.line(
-        [(clock_x, clock_y), (clock_x + radius * 0.52, clock_y)],
-        fill=BLUE,
-        width=stroke,
-    )
-    draw.ellipse(
-        [clock_x - stroke, clock_y - stroke, clock_x + stroke, clock_y + stroke],
-        fill=BLUE,
-    )
+    image.paste(AMBER, (0, 0), ribbon)
 
     return image.resize((size, size), Image.LANCZOS)
 

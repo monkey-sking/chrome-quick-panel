@@ -84,7 +84,7 @@ def compose(popup_path: pathlib.Path, out_path: pathlib.Path, title_lines, bulle
         y += 84
 
     y += 12
-    draw.text((88, y), "左键书签 · 右键历史", font=font(26), fill=MUTED)
+    draw.text((88, y), "点一下书签 · 再点一下历史", font=font(26), fill=MUTED)
 
     y += 74
     for bullet in bullets:
@@ -127,7 +127,7 @@ def main() -> None:
         ROOT / "assets" / "preview-history.png",
         OUT / "01-history.png",
         [("书签 / 历史", INK), ("一键直达", ACCENT)],
-        ["最近标签页与同步设备", "实时搜索书签，支持文件夹", "纯本地运行，不上传数据"],
+        ["悬停设备，直接看标签页", "实时搜索书签，支持文件夹", "纯本地运行，不上传数据"],
     )
     compose(
         ROOT / "assets" / "preview-bookmarks.png",

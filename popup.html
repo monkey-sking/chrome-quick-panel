@@ -7,6 +7,15 @@
 </head>
 <body>
   <div class="app">
+    <nav class="mode-switch" aria-label="面板切换">
+      <button type="button" class="mode-btn" id="mode-history" data-mode="history" aria-pressed="false">
+        历史
+      </button>
+      <button type="button" class="mode-btn" id="mode-bookmarks" data-mode="bookmarks" aria-pressed="false">
+        书签
+      </button>
+    </nav>
+
     <section class="view" id="history-view" hidden>
       <button type="button" class="row row-tall" id="history-open-page">
         <span class="row-icon" aria-hidden="true"></span>
@@ -15,14 +24,17 @@
       </button>
       <div class="rule"></div>
       <div class="section">
-        <h2 class="section-title">最近打开的标签页</h2>
-        <ul class="list" id="recent-tabs"></ul>
-      </div>
-      <div class="rule"></div>
-      <div class="section">
         <h2 class="section-title">您的设备</h2>
         <ul class="list" id="device-list"></ul>
       </div>
+    </section>
+
+    <section class="device-pane" id="device-pane" hidden>
+      <div class="device-head">
+        <span class="device-title" id="device-title"></span>
+        <span class="row-time" id="device-time"></span>
+      </div>
+      <ul class="list device-tabs" id="device-tabs"></ul>
     </section>
 
     <section class="view" id="bookmarks-view" hidden>
