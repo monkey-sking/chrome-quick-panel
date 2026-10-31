@@ -3,7 +3,7 @@
 # 书签 / 历史 快捷面板
 
 <!-- badges:start -->
-[![Stars](https://img.shields.io/github/stars/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/stargazers) [![Forks](https://img.shields.io/github/forks/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/network/members) [![Last commit](https://img.shields.io/github/last-commit/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/commits/main)
+[![Stars](https://img.shields.io/github/stars/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/stargazers) [![Forks](https://img.shields.io/github/forks/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/network/members) [![Last commit](https://img.shields.io/github/last-commit/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/commits/main) [![Language](https://img.shields.io/github/languages/top/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/search?l=)
 <!-- badges:end -->
 
 ![Manifest V3](https://img.shields.io/badge/Manifest%20V3-Chrome%20extension-4285F4?logo=googlechrome&logoColor=white)
