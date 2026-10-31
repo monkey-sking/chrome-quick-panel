@@ -2,6 +2,10 @@
 
 # 书签 / 历史 快捷面板
 
+<!-- badges:start -->
+[![Stars](https://img.shields.io/github/stars/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/stargazers) [![Forks](https://img.shields.io/github/forks/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/network/members) [![Last commit](https://img.shields.io/github/last-commit/monkey-sking/chrome-quick-panel?style=flat-square)](https://github.com/monkey-sking/chrome-quick-panel/commits/main)
+<!-- badges:end -->
+
 ![Manifest V3](https://img.shields.io/badge/Manifest%20V3-Chrome%20extension-4285F4?logo=googlechrome&logoColor=white)
 ![Chrome 120+](https://img.shields.io/badge/Chrome-120%2B-2b7de9?logo=googlechrome&logoColor=white)
 ![License](https://img.shields.io/github/license/monkey-sking/chrome-quick-panel)
